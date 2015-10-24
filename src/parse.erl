@@ -2,10 +2,9 @@
 -export([resolve/1]).
 
 resolve(Str) ->
-  resolve(Str, [""]).
+  lists:foldl(fun combine/2, [""], Str).
 
-resolve([], Acc) -> Acc;
-resolve([$? | Rest], Acc) ->
-  resolve(Rest, [E ++ [N] || E <- Acc, N <- "01"]);
-resolve([C | Rest], Acc) ->
-  resolve(Rest, [E ++ [C] || E <- Acc]).
+combine($?, Acc) ->
+  [E ++ [N] || E <- Acc, N <- "01"];
+combine(C, Acc) ->
+  [E ++ [C] || E <- Acc].
