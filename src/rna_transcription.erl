@@ -3,16 +3,10 @@
 
 -spec to_rna(string()) -> string().
 to_rna(Sequence) ->
-  transcribe(Sequence, "").
+  lists:map(fun transcribe/1, Sequence).
 
--spec transcribe(string(), string()) -> string().
-transcribe("", Transcription) ->
-  Transcription;
-transcribe("G" ++ Rest, Transcription) ->
-  transcribe(Rest, Transcription ++ "C");
-transcribe("C" ++ Rest, Transcription) ->
-  transcribe(Rest, Transcription ++ "G");
-transcribe("T" ++ Rest, Transcription) ->
-  transcribe(Rest, Transcription ++ "A");
-transcribe("A" ++ Rest, Transcription) ->
-  transcribe(Rest, Transcription ++ "U").
+-spec transcribe(char()) -> char().
+transcribe($A) -> $U;
+transcribe($C) -> $G;
+transcribe($G) -> $C;
+transcribe($T) -> $A.
