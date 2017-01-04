@@ -65,7 +65,6 @@ code_change(_OldVsn, State, _Extra) -> {ok, State}.
 %%% Exercism API
 
 create() ->
-  % NOTE: create_tests will fail if it isn't the first run.
   case gen_server:start_link({local, ?SERVER}, ?MODULE, [], []) of
     {ok, _} -> ?SERVER;
     {error, {already_started, _}} -> ?SERVER

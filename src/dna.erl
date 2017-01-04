@@ -1,5 +1,6 @@
 -module(dna).
 -export([count/2, nucleotide_counts/1]).
+-export([hamming_distance/2]).
 
 % Accumulator uses the integer values and must be converted at the end.
 % Also, this ordering ensures that the tests pass.
@@ -36,3 +37,15 @@ nucleotide_counts([N | Rest], Acc) ->
 %
 % count_into(Elem, Acc) ->
 %   lists:keystore(Elem, 1, Acc, {Elem, proplists:get_value(Elem, Acc, 0) + 1}).
+
+-spec hamming_distance(string(), string()) -> non_neg_integer().
+hamming_distance(Left, Right) ->
+  hamming_distance(Left, Right, 0).
+
+-spec hamming_distance(string(), string(), non_neg_integer()) -> non_neg_integer().
+hamming_distance("", "", Acc) ->
+  Acc;
+hamming_distance([C | Left], [C | Right], Acc) ->
+  hamming_distance(Left, Right, Acc);
+hamming_distance([_L | Left], [_R | Right], Acc) ->
+  hamming_distance(Left, Right, Acc + 1).
